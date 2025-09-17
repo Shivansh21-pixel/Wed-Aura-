@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>WedAura Prototype</title>
+
+  <!-- Leaflet CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+
+  <!-- External Styles -->
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <!-- NAV -->
+  <nav>
+    <div class="brand">WedAura <small class="brand-sub">Prototype</small></div>
+    <div class="nav-links">
+      <span id="welcomeName" class="welcome-name"></span>
+      <a href="#search">Search</a>
+      <a href="#designer">Designer</a>
+      <a href="#orders">Orders</a>
+      <a href="#dashboard">Dashboard</a>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <header class="hero">
+    <div class="hero-grid">
+      <div class="hero-left">
+        <h1 class="hero-title">Plan Your Perfect <span id="cycleText"></span></h1>
+        <p class="hero-sub">Search venues, design invites, place multi-address orders and track — all from one dashboard.</p>
+        <div class="hero-cta">
+          <button class="btn" onclick="location.href='#search'">Search Venues</button>
+          <button class="btn secondary" onclick="location.href='#designer'">Design Cards</button>
+        </div>
+      </div>
+      <div class="frame" id="frame"></div>
+    </div>
+  </header>
+
+  <!-- MAIN -->
+  <main>
+    <!-- Search -->
+    <section id="search" class="card">
+      <h2>Venue Search</h2>
+      <div class="filters">
+        <input id="city" placeholder="City (e.g., Lucknow)">
+        <input id="capacity" placeholder="Min capacity" type="number">
+        <input id="minBudget" placeholder="Min ₹" type="number">
+        <input id="maxBudget" placeholder="Max ₹" type="number">
+        <button id="saveFilters" class="btn small">Save Filters</button>
+      </div>
+      <div class="search-grid">
+        <div class="venues-col"><div id="venuesList"></div></div>
+        <div class="map-col" id="map"></div>
+      </div>
+    </section>
+
+    <!-- Designer -->
+    <section id="designer" class="card">
+      <h2>Card Designer</h2>
+      <div class="designer-grid">
+        <div class="designer-form">
+          <label>Template</label>
+          <select id="templateSelect">
+            <option value="t1">Classic</option>
+            <option value="t2">Minimal</option>
+            <option value="t3">Floral</option>
+          </select>
+          <label>Names</label>
+          <input id="names" value="Asha & Raj">
+          <label>Date & Time</label>
+          <input id="datetime" value="22 Jan 2026 • 6:30 PM">
+          <label>Venue</label>
+          <input id="venueName" value="Royal Palace, Lucknow">
+          <div class="designer-actions">
+            <button id="previewBtn" class="btn small">Preview</button>
+            <button id="saveCardBtn" class="btn small">Save Card</button>
+            <button id="downloadBtn" class="btn small success">Download PDF</button>
+          </div>
+        </div>
+        <div class="designer-preview">
+          <div id="cardPreview" class="card-preview"></div>
+          <div id="savedCardsList" class="saved-cards"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Orders -->
+    <section id="orders" class="card">
+      <h2>Multi-address Orders</h2>
+      <div class="orders-grid">
+        <div class="orders-left">
+          <label>Paste CSV (name,phone,address,city,pincode,qty)</label>
+          <textarea id="csvInput" class="csv"></textarea>
+          <div class="orders-actions">
+            <button id="parseCsv" class="btn small">Parse CSV</button>
+            <button id="clearCsv" class="btn small danger">Clear</button>
+          </div>
+        </div>
+        <div class="orders-right">
+          <div id="csvPreview" class="csv-preview"></div>
+          <div class="cost-row">
+            <label>Printing rate (₹/card)</label>
+            <input id="printRate" type="number" value="15" class="small-input">
+            <label>Delivery per address (₹)</label>
+            <input id="deliveryFee" type="number" value="100" class="small-input">
+          </div>
+          <div id="costBreakdown" class="cost-breakdown"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Dashboard -->
+    <section id="dashboard" class="card">
+      <h2>Smart Dashboard</h2>
+      <div class="kpi-row">
+        <div class="kpi"><div class="kpi-label">Total Orders</div><div id="totalOrders" class="kpi-value">0</div></div>
+        <div class="kpi"><div class="kpi-label">Pending</div><div id="pending" class="kpi-value">0</div></div>
+        <div class="kpi"><div class="kpi-label">Dispatched</div><div id="dispatched" class="kpi-value">0</div></div>
+        <div class="kpi"><div class="kpi-label">Delivered</div><div id="delivered" class="kpi-value">0</div></div>
+        <div class="kpi"><div class="kpi-label">Revenue</div><div id="revenue" class="kpi-value">₹0</div></div>
+      </div>
+      <h3>Recommended Venues</h3>
+      <div id="recommended" class="recommend"></div>
+      <h3>Recent Orders</h3>
+      <table><thead><tr><th>Name</th><th>Qty</th><th>Tracking</th><th>Status</th></tr></thead>
+        <tbody id="ordersTable"></tbody>
+      </table>
+    </section>
+  </main>
+
+  <footer>WedAura Prototype • Local demo</footer>
+
+  <!-- Modal -->
+  <div id="modalRoot" style="display:none"></div>
+
+  <!-- Leaflet JS -->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
